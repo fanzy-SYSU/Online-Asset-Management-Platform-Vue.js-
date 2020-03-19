@@ -74,7 +74,6 @@ export default {
                 return;
             }
             let self = this;
-            self.$cookie.set('ADDING', true);
             axios
                 .get('http://127.0.0.1:8087/admin/apply', {
                     headers: {
@@ -89,6 +88,7 @@ export default {
                         type: 'success'
                     })
                     self.done = true;
+                    self.$cookie.set("ADDING", "ongoing");
                 })
                 .catch(err => {
                     self.$notify({
@@ -165,6 +165,33 @@ export default {
                         console.log(err);
                     })
             }
+        }
+    },
+    destroyed: function () {
+        if (this.$cookie.get("ADDING") == "ongoing") {
+            let self = this;
+            // 模拟打印失败
+            axios
+                .get('http://127.0.0.1:8087/admin/printerError', {
+                    headers: {
+                        "token": this.$cookie.get('TOKEN')
+                    }
+                })
+                .then(() => {
+                    self.$notify({
+                        title: '警告',
+                        message: `录入中断！`,
+                        type: 'warning'
+                    })
+                })
+                .catch(err => {
+                    self.$notify({
+                        title: '页面跳转错误',
+                        message: '网络连接错误',
+                        type: 'error'
+                    })
+                    console.log(err);
+                })
         }
     }
 }
