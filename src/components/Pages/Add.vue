@@ -1,5 +1,11 @@
 <template>
     <el-form ref="form" :model="form" label-width="120px">
+        <el-form-item>
+            <el-button type="primary" @click="onApply">点击获取资产号</el-button>
+        </el-form-item>
+        <el-form-item label="资产号：">
+            <el-input v-model="form.item_id" :disabled="true"></el-input>
+        </el-form-item>
         <el-form-item label="设备类型：">
             <el-select v-model="form.itemType" placeholder="请选择设备类型">
                 <el-option label="设备" value="device"></el-option>
@@ -35,7 +41,9 @@ import axios from 'axios';
 export default {
     data() {
         return {
+            done: false,
             form: {
+                item_id: '',
                 itemType: '',
                 sn: '',
                 mac: '',
@@ -56,10 +64,50 @@ export default {
                 return false;
             }
         },
+        onApply() {
+            if (this.done) {
+                this.$notify({
+                        title: '警告',
+                        message: `请勿重复获取资产号`,
+                        type: 'warning'
+                    })
+                return;
+            }
+            let self = this;
+            self.$cookie.set('ADDING', true);
+            axios
+                .get('http://127.0.0.1:8087/admin/apply', {
+                    headers: {
+                        "token": this.$cookie.get('TOKEN')
+                    }
+                })
+                .then(data => {
+                    self.form.item_id = data.data.itemId;
+                    self.$notify({
+                        title: '资产号获取成功',
+                        message: `已获取资产号[${data.data.itemId}]`,
+                        type: 'success'
+                    })
+                    self.done = true;
+                })
+                .catch(err => {
+                    self.$notify({
+                        title: '资产号获取失败',
+                        message: '网络连接错误',
+                        type: 'error'
+                    })
+                    console.log(err);
+                })
+        },
         onSubmit() {
-            console.log("Submit!")
-            console.log(this.form)
-            if (this.form.itemType == '' || this.form.keeper == '' || this.form.supervisor == '' || this.form.cfrom == '' || this.form.message == '') {
+            if (this.form.item_id == '') {
+                this.$notify({
+                    title: '警告',
+                    message: '请先获取资产号',
+                    type: 'warning'
+                })
+            }
+            else if (this.form.itemType == '' || this.form.keeper == '' || this.form.supervisor == '' || this.form.cfrom == '' || this.form.message == '') {
                 this.$notify({
                     title: '警告',
                     message: '输入内容不能为空',
@@ -76,6 +124,7 @@ export default {
             else {
                 let self = this;
                 axios.post('http://127.0.0.1:8087/admin/addDevice', {
+                    itemId: self.form.item_id,
                     itemType: self.form.itemType,
                     sn: self.form.sn, // DEVICE ONLY
                     mac: self.form.mac, // DEVICE ONLY
@@ -87,16 +136,17 @@ export default {
                 }, {
                     headers: {
                         "token": this.$cookie.get('TOKEN')
-                        // 'Authorization': `Bearer ${self.$cookie.get('TOKEN')}`
                     }
                 })
                     .then(data => {
                         if (data.data.result) {
                             self.$notify({
                                 title: '成功',
-                                message: '录入成功！',
+                                message: `录入成功！资产号为${data.data.itemId}`,
                                 type: 'success'
                             })
+                            self.$cookie.delete('ADDING');
+                            self.$router.go(0);
                         }
                         else {
                             self.$notify({

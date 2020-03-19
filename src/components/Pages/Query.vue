@@ -56,18 +56,18 @@
               size="small"
               icon="el-icon-delete"
             ></el-button>
-            <el-dialog title="确认报废" :visible.sync="deleteDialogVisible" :append-to-body="true">
+            <!-- <el-dialog title="确认报废" :visible.sync="deleteDialogVisible" :append-to-body="true">
               <el-form :model="deleteReason">
                 <el-form-item label="报废理由" label-width="120px">
                   <el-input type="textarea" :rows="3" v-modle="deleteReason.data" placeholder="请输入报废理由" clearable></el-input>
                 </el-form-item>
-              </el-form>
+              </el-form> -->
               <!-- <span>确认报废{{ distinguish() }} [{{ deleteDialogData.item_id }}]{{ deviceDetails() }} 吗？</span> -->
-              <div slot="footer" class="dialog-footer">
+              <!-- <div slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="handleDeleteConfirm">确 定</el-button>
                 <el-button @click="deleteDialogVisible = false">取 消</el-button>
               </div>
-            </el-dialog>
+            </el-dialog> -->
 
             <el-button
               @click="handleHistoryOpen(scope.row.item_id)"
@@ -159,18 +159,18 @@
               size="small"
               icon="el-icon-delete"
             ></el-button>
-            <el-dialog title="确认报废" :visible.sync="deleteDialogVisible" :append-to-body="true">
+            <!-- <el-dialog title="确认报废" :visible.sync="deleteDialogVisible" :append-to-body="true">
               <el-form :model="deleteReason">
                 <el-form-item label="报废理由" label-width="120px">
                   <el-input type="textarea" :rows="3" v-modle="deleteReason.data" placeholder="请输入报废理由" clearable></el-input>
                 </el-form-item>
-              </el-form>
+              </el-form> -->
               <!-- <span>确认报废{{ distinguish() }} [{{ deleteDialogData.item_id }}]{{ deviceDetails() }} 吗？</span> -->
-              <div slot="footer" class="dialog-footer">
+              <!-- <div slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="handleDeleteConfirm">确 定</el-button>
                 <el-button @click="deleteDialogVisible = false">取 消</el-button>
               </div>
-            </el-dialog>
+            </el-dialog> -->
 
             <el-button
               @click="handleHistoryOpen(scope.row.item_id)"
@@ -260,18 +260,18 @@
               size="small"
               icon="el-icon-delete"
             ></el-button>
-            <el-dialog title="确认报废" :visible.sync="deleteDialogVisible" :append-to-body="true">
+            <!-- <el-dialog title="确认报废" :visible.sync="deleteDialogVisible" :append-to-body="true">
               <el-form :model="deleteReason">
                 <el-form-item label="报废理由" label-width="120px">
                   <el-input type="textarea" :rows="3" v-modle="deleteReason.data" placeholder="请输入报废理由" clearable></el-input>
                 </el-form-item>
-              </el-form>
+              </el-form> -->
               <!-- <span>确认报废{{ distinguish() }} [{{ deleteDialogData.item_id }}]{{ deviceDetails() }} 吗？</span> -->
-              <div slot="footer" class="dialog-footer">
+              <!-- <div slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="handleDeleteConfirm">确 定</el-button>
                 <el-button @click="deleteDialogVisible = false">取 消</el-button>
               </div>
-            </el-dialog>
+            </el-dialog> -->
 
             <el-button
               @click="handleHistoryOpen(scope.row.item_id)"
@@ -384,128 +384,7 @@ export default {
       history_page: 1,
       history_totalRow: 0,
       history_id: "",
-      tableData: [
-        // {
-        //     "item_id": "201911250003",
-        //     "itemType": "device",
-        //     "sn": "10000001",
-        //     "mac": "00-01-6C-06-A1-23",
-        //     "keeper": "Tom",
-        //     "supervisor": "Tom",
-        //     "status": "using",
-        //     "cfrom": "shcool",
-        //     "recordTime": "2019-11-25 15:53:17",
-        //     "modifyTime": "2019-11-25 15:53:17"
-        // },
-        // {
-        //     "item_id": "201911250004",
-        //     "itemType": "device",
-        //     "sn": "10000002",
-        //     "mac": "00-01-6C-06-A1-24",
-        //     "keeper": "Tom",
-        //     "supervisor": "Tom",
-        //     "status": "using",
-        //     "cfrom": "shcool",
-        //     "recordTime": "2019-11-25 15:54:17",
-        //     "modifyTime": "2019-11-25 15:54:17"
-        // },
-        // {
-        //     "item_id": "201911260001",
-        //     "itemType": "device",
-        //     "sn": "10000004",
-        //     "mac": "00-01-6C-06-A1-31",
-        //     "keeper": "Nico",
-        //     "supervisor": "Simon",
-        //     "status": "using",
-        //     "cfrom": "libary",
-        //     "recordTime": "2019-11-26 20:05:23",
-        //     "modifyTime": "2019-11-28 00:53:24"
-        // },
-        // {
-        //     "item_id": "201911260002",
-        //     "itemType": "device",
-        //     "sn": "10000005",
-        //     "mac": "00-01-6C-06-A1-11",
-        //     "keeper": "Simon",
-        //     "supervisor": "Simon",
-        //     "status": "using",
-        //     "cfrom": "libary",
-        //     "recordTime": "2019-11-26 20:05:41",
-        //     "modifyTime": "2019-11-26 20:05:41"
-        // },
-        // {
-        //     "item_id": "201911260003",
-        //     "itemType": "device",
-        //     "sn": "10000006",
-        //     "mac": "00-01-6C-06-A1-11",
-        //     "keeper": "Simon",
-        //     "supervisor": "Simon",
-        //     "status": "using",
-        //     "cfrom": "libary",
-        //     "recordTime": "2019-11-26 20:05:46",
-        //     "modifyTime": "2019-11-26 20:05:46"
-        // },
-        // {
-        //     "item_id": "201911260004",
-        //     "itemType": "device",
-        //     "sn": "10000007",
-        //     "mac": "00-01-6C-06-A1-11",
-        //     "keeper": "Simon",
-        //     "supervisor": "Simon",
-        //     "status": "using",
-        //     "cfrom": "libary",
-        //     "recordTime": "2019-11-26 20:05:51",
-        //     "modifyTime": "2019-11-26 20:05:51"
-        // },
-        // {
-        //     "item_id": "201911260013",
-        //     "itemType": "item",
-        //     "sn": null,
-        //     "mac": null,
-        //     "keeper": "Simon",
-        //     "supervisor": "Simon",
-        //     "status": "using",
-        //     "cfrom": "school",
-        //     "recordTime": "2019-11-26 20:19:56",
-        //     "modifyTime": "2019-11-26 20:19:56"
-        // },
-        // {
-        //     "item_id": "201911260014",
-        //     "itemType": "item",
-        //     "sn": null,
-        //     "mac": null,
-        //     "keeper": "Simon",
-        //     "supervisor": "Simon",
-        //     "status": "using",
-        //     "cfrom": "school",
-        //     "recordTime": "2019-11-26 20:19:57",
-        //     "modifyTime": "2019-11-26 20:19:57"
-        // },
-        // {
-        //     "item_id": "201911260015",
-        //     "itemType": "item",
-        //     "sn": null,
-        //     "mac": null,
-        //     "keeper": "Simon",
-        //     "supervisor": "Simon",
-        //     "status": "using",
-        //     "cfrom": "school",
-        //     "recordTime": "2019-11-26 20:19:57",
-        //     "modifyTime": "2019-11-26 20:19:57"
-        // },
-        // {
-        //     "item_id": "201911260016",
-        //     "itemType": "item",
-        //     "sn": null,
-        //     "mac": null,
-        //     "keeper": "Nico",
-        //     "supervisor": "Jack",
-        //     "status": "using",
-        //     "cfrom": "libary",
-        //     "recordTime": "2019-11-26 20:20:09",
-        //     "modifyTime": "2019-11-28 20:45:38"
-        // }
-    ]
+      tableData: []
     };
   },
   beforeMount() {
@@ -620,53 +499,111 @@ export default {
       this.$forceUpdate()
     },
     handleDelete(data) {
-      this.deleteDialogVisible = true;
-      this.deleteDialogData = data;
-    },
-    handleDeleteConfirm() {
-      this.deleteDialogVisible = false;
       let self = this;
-      axios
-        .post(
-          "http://127.0.0.1:8087/admin/retire",
-          {
-            itemId: self.deleteDialogData.item_id,
-            recorder: self.$cookie.get("USERNAME"),
-            detail: self.deleteReason.data,
-            // detail: "查询列表报废"
-          },
-          {
-            headers: {
-              token: this.$cookie.get("TOKEN")
-              // 'Authorization': `Bearer ${self.$cookie.get('TOKEN')}`
+      this.$prompt('请输入报废理由', '确认报废', {
+        confirmButtonText: '确认报废',
+        cancelButtonText: '取消',
+        inputPlaceholder: '请输入报废理由',
+        inputErrorMessage: '输入不能为空',
+        inputValidator: (value) => {       // 点击按钮时，对文本框里面的值进行验证
+            if(!value) {
+                return '输入不能为空';
             }
-          }
-        )
-        .then(data => {
-          if (data.data.result) {
+        },
+      }).then(({ value} ) => {
+        axios
+          .post(
+            "http://127.0.0.1:8087/admin/retire",
+            {
+              itemId: data.item_id,
+              recorder: self.$cookie.get("USERNAME"),
+              detail: value,
+            },
+            {
+              headers: {
+                token: this.$cookie.get("TOKEN")
+                // 'Authorization': `Bearer ${self.$cookie.get('TOKEN')}`
+              }
+            }
+          )
+          .then(data => {
+            if (data.data.result) {
+              self.$notify({
+                title: "成功",
+                message: "报废成功！",
+                type: "success"
+              });
+              self.$router.go(0);
+            } else {
+              self.$notify({
+                title: "失败",
+                message: "报废失败！",
+                type: "warning"
+              });
+            }
+          })
+          .catch(err => {
             self.$notify({
-              title: "成功",
-              message: "报废成功！",
-              type: "success"
+              title: "错误",
+              message: "网络连接错误",
+              type: "error"
             });
-            self.$router.go(0);
-          } else {
-            self.$notify({
-              title: "失败",
-              message: "报废失败！",
-              type: "warning"
-            });
-          }
-        })
-        .catch(err => {
-          self.$notify({
-            title: "错误",
-            message: "网络连接错误",
-            type: "error"
+            console.log(err);
           });
-          console.log(err);
-        });
+      }).catch(() => {
+        self.$notify({
+          title: "取消",
+          message: "取消报废",
+          type: "warning"
+        })
+      })
+      // this.deleteDialogVisible = true;
+      // this.deleteDialogData = data;
     },
+    // handleDeleteConfirm() {
+    //   this.deleteDialogVisible = false;
+    //   let self = this;
+    //   axios
+    //     .post(
+    //       "http://127.0.0.1:8087/admin/retire",
+    //       {
+    //         itemId: self.deleteDialogData.item_id,
+    //         recorder: self.$cookie.get("USERNAME"),
+    //         detail: self.deleteReason.data,
+    //         // detail: "查询列表报废"
+    //       },
+    //       {
+    //         headers: {
+    //           token: this.$cookie.get("TOKEN")
+    //           // 'Authorization': `Bearer ${self.$cookie.get('TOKEN')}`
+    //         }
+    //       }
+    //     )
+    //     .then(data => {
+    //       if (data.data.result) {
+    //         self.$notify({
+    //           title: "成功",
+    //           message: "报废成功！",
+    //           type: "success"
+    //         });
+    //         self.$router.go(0);
+    //       } else {
+    //         self.$notify({
+    //           title: "失败",
+    //           message: "报废失败！",
+    //           type: "warning"
+    //         });
+    //       }
+    //     })
+    //     .catch(err => {
+    //       self.$notify({
+    //         title: "错误",
+    //         message: "网络连接错误",
+    //         type: "error"
+    //       });
+    //       console.log(err);
+    //     });
+    // },
     handleHistoryOpen(data) {
       this.history_page = 1;
       this.handleHistory(data);
