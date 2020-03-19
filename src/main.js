@@ -5,7 +5,6 @@ import 'element-ui/lib/theme-chalk/index.css';
 import router from '../router/index.js';
 import VueCookie from 'vue-cookie';
 import { Notification } from 'element-ui';
-// import axios from 'axios';
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
@@ -13,36 +12,6 @@ Vue.use(VueCookie);
 
 // 使用Vue全局前置守卫进行权限管理
 router.beforeEach((to, from, next) => {
-  // if (from.path == '/add') {
-  //   // 退出资产录入界面的处理
-  //   Vue.cookie.delete("ADDING");
-  //   axios
-  //     .get('http://127.0.0.1:8087/admin/printerError', {
-  //       headers: {
-  //         "token": this.$cookie.get('TOKEN')
-  //       }
-  //     })
-  //     .then(data => {
-  //       self.$notify({
-  //         title: '已退出',
-  //         message: `已退出资产录入界面（status: ${data.data.status}）`,
-  //         type: 'warning'
-  //       })
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     })
-  //   if (Vue.cookie.get("AUTHORITY") != null && (to.path == '/login' || to.path == '/register')) {
-  //     // 未登录
-  //     next('/homepage')
-  //     Notification.warning('已为登录状态，自动返回首页！');
-  //     document.title = '资产在线管理平台';
-  //   }
-  //   else {
-  //     next();
-  //     document.title = to.meta.title;
-  //   }
-  // }
   if (to.path != '/login' && to.path != '/register') {
     if (Vue.cookie.get("AUTHORITY") == null) {
       // 未登录

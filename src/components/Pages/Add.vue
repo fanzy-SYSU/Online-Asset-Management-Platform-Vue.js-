@@ -12,6 +12,7 @@
                 <el-option label="物品" value="item"></el-option>
             </el-select>
         </el-form-item>
+        <!-- 使用v-if来实现选项决定下面输入框的显示 -->
         <el-form-item label="设备号：" v-if="visible()">
             <el-input v-model="form.sn"></el-input>
         </el-form-item>
@@ -27,7 +28,7 @@
         <el-form-item label="来源：">
             <el-input v-model="form.cfrom"></el-input>
         </el-form-item>
-        <el-form-item label="资产详细信息">
+        <el-form-item label="资产详细信息：">
             <el-input v-model="form.message" @keyup.enter.native="onSubmit"></el-input>
         </el-form-item>
         <el-form-item>
@@ -87,6 +88,7 @@ export default {
                         message: `已获取资产号[${data.data.itemId}]`,
                         type: 'success'
                     })
+                    // 做标记
                     self.done = true;
                     self.$cookie.set("ADDING", "ongoing");
                 })
@@ -100,6 +102,7 @@ export default {
                 })
         },
         onSubmit() {
+            // 防止未填写表单内容
             if (this.form.item_id == '') {
                 this.$notify({
                     title: '警告',
@@ -146,7 +149,7 @@ export default {
                                 type: 'success'
                             })
                             self.$cookie.delete('ADDING');
-                            self.$router.go(0);
+                            self.$router.go(0); // 录入完自动刷新页面
                         }
                         else {
                             self.$notify({

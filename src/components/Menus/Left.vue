@@ -23,14 +23,6 @@
         <i class="el-icon-search"></i>
         资产查询
     </el-menu-item>
-    <!-- <el-menu-item index="/modify">
-        <i class="el-icon-edit"></i>
-        资产信息修改
-    </el-menu-item>
-    <el-menu-item index="/scrap">
-        <i class="el-icon-delete"></i>
-        资产废弃
-    </el-menu-item> -->
   </el-menu>
 </template>
 
@@ -42,16 +34,12 @@ export default {
             {name:'/homepage',navItem:'首页'},
             {name:'/add',navItem:'资产录入'},
             {name:'/query',navItem:'资产查询'},
-            // {name:'/modify',navItem:'资产信息修改'},
-            // {name:'/scrap',navItem:'资产废弃'},
         ]
     };
   },
   methods: {
     handleSelect(key, keyPath) {
       console.log(`key=${key}, keyPath=${keyPath}`);
-    //   this.$router.push({path: key}).catch(err => {err});
-    //   console.log("goto newpages")
     }
   }
 };

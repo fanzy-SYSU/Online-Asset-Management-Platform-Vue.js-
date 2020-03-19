@@ -21,9 +21,6 @@ export default {
 
 <style>
 @import url("//unpkg.com/element-ui@2.13.0/lib/theme-chalk/index.css");
-/* .el-page-header {
-    display: grid!important;
-} */
 .el-page-header__content {
   font-size: 30px !important;
   font-weight: 200 !important;

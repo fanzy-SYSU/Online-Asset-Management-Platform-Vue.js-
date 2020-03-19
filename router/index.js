@@ -6,8 +6,6 @@ import RegisterPage from '../src/components/Login&Register/RegisterPage.vue';
 import HomePage from '../src/components/Pages/Home.vue';
 import AddDevicePage from '../src/components/Pages/Add.vue';
 import QueryDevicePage from '../src/components/Pages/Query.vue';
-// import ModifyPage from '../src/components/Pages/Modify.vue';
-// import ScrapPage from '../src/components/Pages/Scrap.vue';
 
 Vue.use(Router);
 
@@ -58,22 +56,7 @@ export default new Router({
                 title: '资产在线管理平台'
             }
         },
-        // {
-        //     path: '/modify',
-        //     name: '资产信息修改',
-        //     component: ModifyPage,
-        //     meta: {
-        //         keepAlive: true
-        //     }
-        // },
-        // {
-        //     path: '/scrap',
-        //     name: '资产废弃',
-        //     component: ScrapPage,
-        //     meta: {
-        //         keepAlive: true
-        //     }
-        // },
+        // 重定向
         {
             path: '*',
             redirect: '/homepage'

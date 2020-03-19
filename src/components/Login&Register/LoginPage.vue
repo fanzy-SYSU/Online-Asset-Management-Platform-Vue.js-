@@ -2,7 +2,6 @@
   <body id="poster">
     <el-form class="login-container" label-position="left" label-width="0px">
       <div class="login_title">资产在线管理平台</div>
-      <!-- <el-form-item label="账号："> -->
       <el-form-item>
         <el-input type="text" v-model="loginForm.username" auto-complete="off" placeholder="请输入账号" clearable></el-input>
       </el-form-item>
@@ -46,16 +45,6 @@ export default {
             });
             return;
           }
-          /* test needed */
-          else if(this.loginForm.username == "Ziyue Fan") {
-              this.$notify({
-                  title: '登录成功',
-                  message: '欢迎回来，Ziyue Fan（测试）',
-                  type: 'success'
-              });
-              this.$router.push({path: '/homepage'});
-          }
-          /* test needed */
           else if(this.loginForm.password == '') {
             this.$notify({
               title: '警告',
@@ -124,7 +113,6 @@ export default {
 <style>
   #poster {
     background: url("./background.jpg") no-repeat;
-    /* background: #fff; */
     background-position: center;
     height: 100%;
     width: 100%;
@@ -142,7 +130,6 @@ export default {
     margin: 90px auto;
     width: 350px;
     padding: 35px 35px 15px 35px;
-    /* background: #fff; */
     background: rgba(255,255,255,0.5);
     border: 1px solid #eaeaea;
     box-shadow: 0 0 25px #cac6c6;

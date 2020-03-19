@@ -56,18 +56,6 @@
               size="small"
               icon="el-icon-delete"
             ></el-button>
-            <!-- <el-dialog title="确认报废" :visible.sync="deleteDialogVisible" :append-to-body="true">
-              <el-form :model="deleteReason">
-                <el-form-item label="报废理由" label-width="120px">
-                  <el-input type="textarea" :rows="3" v-modle="deleteReason.data" placeholder="请输入报废理由" clearable></el-input>
-                </el-form-item>
-              </el-form> -->
-              <!-- <span>确认报废{{ distinguish() }} [{{ deleteDialogData.item_id }}]{{ deviceDetails() }} 吗？</span> -->
-              <!-- <div slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="handleDeleteConfirm">确 定</el-button>
-                <el-button @click="deleteDialogVisible = false">取 消</el-button>
-              </div>
-            </el-dialog> -->
 
             <el-button
               @click="handleHistoryOpen(scope.row.item_id)"
@@ -159,18 +147,6 @@
               size="small"
               icon="el-icon-delete"
             ></el-button>
-            <!-- <el-dialog title="确认报废" :visible.sync="deleteDialogVisible" :append-to-body="true">
-              <el-form :model="deleteReason">
-                <el-form-item label="报废理由" label-width="120px">
-                  <el-input type="textarea" :rows="3" v-modle="deleteReason.data" placeholder="请输入报废理由" clearable></el-input>
-                </el-form-item>
-              </el-form> -->
-              <!-- <span>确认报废{{ distinguish() }} [{{ deleteDialogData.item_id }}]{{ deviceDetails() }} 吗？</span> -->
-              <!-- <div slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="handleDeleteConfirm">确 定</el-button>
-                <el-button @click="deleteDialogVisible = false">取 消</el-button>
-              </div>
-            </el-dialog> -->
 
             <el-button
               @click="handleHistoryOpen(scope.row.item_id)"
@@ -260,18 +236,6 @@
               size="small"
               icon="el-icon-delete"
             ></el-button>
-            <!-- <el-dialog title="确认报废" :visible.sync="deleteDialogVisible" :append-to-body="true">
-              <el-form :model="deleteReason">
-                <el-form-item label="报废理由" label-width="120px">
-                  <el-input type="textarea" :rows="3" v-modle="deleteReason.data" placeholder="请输入报废理由" clearable></el-input>
-                </el-form-item>
-              </el-form> -->
-              <!-- <span>确认报废{{ distinguish() }} [{{ deleteDialogData.item_id }}]{{ deviceDetails() }} 吗？</span> -->
-              <!-- <div slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="handleDeleteConfirm">确 定</el-button>
-                <el-button @click="deleteDialogVisible = false">取 消</el-button>
-              </div>
-            </el-dialog> -->
 
             <el-button
               @click="handleHistoryOpen(scope.row.item_id)"
@@ -388,6 +352,7 @@ export default {
     };
   },
   beforeMount() {
+    // 初始化时默认显示“全部资产”的第一页
     let self = this;
     axios
       .get(
@@ -395,7 +360,6 @@ export default {
         {
           headers: {
             token: this.$cookie.get("TOKEN")
-            // 'Authorization': `Bearer ${self.$cookie.get('TOKEN')}`
           }
         }
       )
@@ -425,13 +389,10 @@ export default {
         url = `http://127.0.0.1:8087/admin/item?rowsPerPage=${self.rowsPerPage}&page=${self.page}`;
       else
         url = `http://127.0.0.1:8087/admin/retireItem?rowsPerPage=${self.rowsPerPage}&page=${self.page}`;
-      console.log(self.tabKey);
-      console.log(url);
       axios
         .get(url, {
           headers: {
             token: this.$cookie.get("TOKEN")
-            // 'Authorization': `Bearer ${self.$cookie.get('TOKEN')}`
           }
         })
         .then(data => {
@@ -466,7 +427,6 @@ export default {
           {
             headers: {
               token: this.$cookie.get("TOKEN")
-              // 'Authorization': `Bearer ${self.$cookie.get('TOKEN')}`
             }
           }
         )
@@ -505,7 +465,7 @@ export default {
         cancelButtonText: '取消',
         inputPlaceholder: '请输入报废理由',
         inputErrorMessage: '输入不能为空',
-        inputValidator: (value) => {       // 点击按钮时，对文本框里面的值进行验证
+        inputValidator: (value) => {  // 验证内容不能为空
             if(!value) {
                 return '输入不能为空';
             }
@@ -522,7 +482,6 @@ export default {
             {
               headers: {
                 token: this.$cookie.get("TOKEN")
-                // 'Authorization': `Bearer ${self.$cookie.get('TOKEN')}`
               }
             }
           )
@@ -557,53 +516,7 @@ export default {
           type: "warning"
         })
       })
-      // this.deleteDialogVisible = true;
-      // this.deleteDialogData = data;
     },
-    // handleDeleteConfirm() {
-    //   this.deleteDialogVisible = false;
-    //   let self = this;
-    //   axios
-    //     .post(
-    //       "http://127.0.0.1:8087/admin/retire",
-    //       {
-    //         itemId: self.deleteDialogData.item_id,
-    //         recorder: self.$cookie.get("USERNAME"),
-    //         detail: self.deleteReason.data,
-    //         // detail: "查询列表报废"
-    //       },
-    //       {
-    //         headers: {
-    //           token: this.$cookie.get("TOKEN")
-    //           // 'Authorization': `Bearer ${self.$cookie.get('TOKEN')}`
-    //         }
-    //       }
-    //     )
-    //     .then(data => {
-    //       if (data.data.result) {
-    //         self.$notify({
-    //           title: "成功",
-    //           message: "报废成功！",
-    //           type: "success"
-    //         });
-    //         self.$router.go(0);
-    //       } else {
-    //         self.$notify({
-    //           title: "失败",
-    //           message: "报废失败！",
-    //           type: "warning"
-    //         });
-    //       }
-    //     })
-    //     .catch(err => {
-    //       self.$notify({
-    //         title: "错误",
-    //         message: "网络连接错误",
-    //         type: "error"
-    //       });
-    //       console.log(err);
-    //     });
-    // },
     handleHistoryOpen(data) {
       this.history_page = 1;
       this.handleHistory(data);
@@ -622,7 +535,6 @@ export default {
           {
             headers: {
               token: this.$cookie.get("TOKEN")
-              // 'Authorization': `Bearer ${self.$cookie.get('TOKEN')}`
             }
           }
         )
@@ -647,20 +559,6 @@ export default {
     handlePageChange(e) {
       this.onQuery(e);
     }
-    // distinguish() {
-    //   if (this.deleteDialogData.itemType == "device") {
-    //     return "设备";
-    //   } else {
-    //     return "物品";
-    //   }
-    // },
-    // deviceDetails() {
-    //   if (this.deleteDialogData.itemType == "device") {
-    //     return `（设备号：${this.deleteDialogData.sn}，mac地址：${this.deleteDialogData.mac}）`;
-    //   } else {
-    //     return "";
-    //   }
-    // },
   }
 };
 </script>

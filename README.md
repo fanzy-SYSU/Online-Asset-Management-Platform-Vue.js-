@@ -1,7 +1,10 @@
 # Online-Asset-Management-Platform-Vue.js-
-ver 1.1.1
+ver 1.1.2
 
-## Update log
+## Update Log
+---
+2020/3/19
+- 增加了一些必要的注释，删除了不必要的注释
 
 ### v1.1.1
 ---

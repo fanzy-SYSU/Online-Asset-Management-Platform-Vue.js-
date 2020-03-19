@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <!-- 利用v-if和route.meta实现导航栏和侧边栏的可见 -->
     <el-container v-if="$route.meta.keepAlive">
       <el-header height="50px">
         <keep-alive>
@@ -49,32 +50,21 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* background: url('./components/Login&Register/background2.jpg') no-repeat; */
   background-color: rgba(255,255,255,0.7);
   background-position: center;
   height: 100%;
   width: 100%;
   background-size: cover;
   position: fixed;
-  /* background-image: url('./components/Login&Register/background2.jpg')!important;
-  background-color: rgba(255,255,255,70%)!important;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover; */
 }
 .el-header {
   margin-top: 40px;
-  /* background: rgba(255,255,255,0.5); */
 }
 .menu_title {
   text-align: left;
   font-size: 25px;
   font-weight: 100;
-  /* transform: scale(1.18,1); */
   margin-top: -20px;
   margin-bottom: 15px;
 }
-/* .loginpage {
-  text-align: center;
-} */
 </style>
