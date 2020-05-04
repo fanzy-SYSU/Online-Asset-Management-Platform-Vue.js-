@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="form" :model="form" label-width="120px">
+  <el-form ref="form" :model="form" :rules="rules" label-width="120px">
       <!-- 另一种风格的资产号获取
     <el-form-item label="资产号：">
       <el-button type="primary" @click="onApply" v-if="visible_apply()">点击获取资产号</el-button>
@@ -15,19 +15,19 @@
       </el-select>
     </el-form-item>
     <!-- 使用v-if来实现选项决定下面输入框的显示 -->
-    <el-form-item label="设备号：" v-if="visible()">
+    <el-form-item label="设备号：" prop="sn" v-if="visible()">
       <el-input v-model="form.sn"></el-input>
     </el-form-item>
-    <el-form-item label="mac地址：" v-if="visible()">
+    <el-form-item label="mac地址：" prop="mac" v-if="visible()">
       <el-input v-model="form.mac"></el-input>
     </el-form-item>
-    <el-form-item label="使用人：">
+    <el-form-item label="使用人：" prop="keeper">
       <el-input v-model="form.keeper"></el-input>
     </el-form-item>
-    <el-form-item label="负责人：">
+    <el-form-item label="负责人：" prop="supervisor">
       <el-input v-model="form.supervisor"></el-input>
     </el-form-item>
-    <el-form-item label="来源：">
+    <el-form-item label="来源：" prop="cfrom">
       <el-input v-model="form.cfrom"></el-input>
     </el-form-item>
     <el-form-item label="资产详细信息：">
@@ -43,6 +43,34 @@
 import axios from "axios";
 export default {
   data() {
+    var mac_check = (rule, value, callback) => {
+      let reg = /((([a-f0-9]{2}:){5})|(([a-f0-9]{2}-){5}))[a-f0-9]{2}/gi;
+      if (!value) {
+        return callback(new Error('必填'))
+      }
+      setTimeout(() => {
+        if (reg.test(value)) {
+          callback();
+        }
+        else {
+          callback(new Error('请输入正确的mac格式！'));
+        }
+      }, 10)
+    };
+    var sn_check = (rule, value, callback) => {
+      let reg = /^\d{12}$/;
+      if (!value) {
+        return callback(new Error('必填'))
+      }
+      setTimeout(() => {
+        if (reg.test(value)) {
+          callback();
+        } 
+        else {
+          callback(new Error('请输入正确的sn格式！'));
+        }
+      })
+    }
     return {
       done: false,
       form: {
@@ -52,9 +80,25 @@ export default {
         mac: "",
         keeper: "",
         supervisor: "",
-        state: "using",
         cfrom: "",
         message: ""
+      },
+      rules: {
+        sn: [
+          { required: true, validator: sn_check, trigger: 'blur' }
+        ],
+        mac: [
+          { required: true, validator: mac_check, trigger: 'blur' }
+        ],
+        keeper: [
+          { required: true, message: '必填' }
+        ],
+        supervisor: [
+          { required: true, message: '必填' }
+        ],
+        cfrom: [
+          { required: true, message: '必填' }
+        ],
       }
     };
   },
@@ -85,12 +129,24 @@ export default {
       }
       let self = this;
       axios
-        .get("http://127.0.0.1:8087/admin/apply", {
+        .get("http://47.96.132.244:8087/admin/apply", {
           headers: {
             token: this.$cookie.get("TOKEN")
           }
         })
         .then(data => {
+          if (data.data.msg == "授权已过期") {
+            self.$notify({
+              title: '资产号获取失败',
+              message: '当前登录已过期，请重新登录！',
+              type: 'error'
+            })
+            this.$cookie.delete("TOKEN");
+            this.$cookie.delete("AUTHORITY");
+            this.$cookie.delete("USERNAME");
+            this.$router.replace({ path: "/login" });
+            return;
+          }
           self.form.item_id = data.data.itemId;
           self.$notify({
             title: "资产号获取成功",
@@ -112,6 +168,7 @@ export default {
     },
     onSubmit() {
       // 防止未填写表单内容
+      let mac_reg = /((([a-f0-9]{2}:){5})|(([a-f0-9]{2}-){5}))[a-f0-9]{2}/gi;
       if (this.form.item_id == "") {
         this.$notify({
           title: "警告",
@@ -122,8 +179,7 @@ export default {
         this.form.itemType == "" ||
         this.form.keeper == "" ||
         this.form.supervisor == "" ||
-        this.form.cfrom == "" ||
-        this.form.message == ""
+        this.form.cfrom == ""
       ) {
         this.$notify({
           title: "警告",
@@ -139,11 +195,19 @@ export default {
           message: "输入内容不能为空",
           type: "warning"
         });
+      } else if (
+        !mac_reg.test(this.form.mac) && this.form.itemType == 'device'
+      ) {
+        this.$notify({
+          title: "警告",
+          message: "请输入合法的mac地址",
+          type: "warning"
+        });
       } else {
         let self = this;
         axios
           .post(
-            "http://127.0.0.1:8087/admin/addDevice",
+            "http://47.96.132.244:8087/admin/addDevice",
             {
               itemId: self.form.item_id,
               itemType: self.form.itemType,
@@ -151,9 +215,10 @@ export default {
               mac: self.form.mac, // DEVICE ONLY
               keeper: self.form.keeper,
               supervisor: self.form.supervisor,
-              status: self.form.status,
+              status: '库存',
               cfrom: self.form.cfrom,
-              message: self.form.message
+              message: self.form.message,
+              operator: self.$cookie.get("USERNAME")
             },
             {
               headers: {
@@ -162,14 +227,28 @@ export default {
             }
           )
           .then(data => {
+            if (data.data.msg == "授权已过期") {
+              self.$notify({
+                title: '录入失败',
+                message: '当前登录已过期，请重新登录！',
+                type: 'error'
+              })
+              this.$cookie.delete("TOKEN");
+              this.$cookie.delete("AUTHORITY");
+              this.$cookie.delete("USERNAME");
+              this.$router.replace({ path: "/login" });
+              return;
+            }
             if (data.data.result) {
+              self.$cookie.delete("ADDING");
               self.$notify({
                 title: "成功",
                 message: `录入成功！资产号为${data.data.itemId}`,
                 type: "success"
               });
-              self.$cookie.delete("ADDING");
-              self.$router.go(0); // 录入完自动刷新页面
+              setTimeout(() => {
+                self.$router.go(0); // 录入完自动刷新页面
+              }, 3000)
             } else {
               self.$notify({
                 title: "警告",
@@ -194,7 +273,7 @@ export default {
       let self = this;
       // 模拟打印失败
       axios
-        .get("http://127.0.0.1:8087/admin/printerError", {
+        .get("http://47.96.132.244:8087/admin/printerError", {
           headers: {
             token: this.$cookie.get("TOKEN")
           }

@@ -19,7 +19,7 @@ router.beforeEach((to, from, next) => {
       Notification.warning('当前未登录！');
       document.title = '登录';
     }
-    else if (to.path != '/homepage' && to.path != '/add' && to.path != '/query'){
+    else if (to.path != '/homepage' && to.path != '/add' && to.path != '/list' && to.path != '/query'){
       // 登录了但是访问了非法页面
       next('/homepage')
       Notification.warning('不存在该页面，自动返回首页！');

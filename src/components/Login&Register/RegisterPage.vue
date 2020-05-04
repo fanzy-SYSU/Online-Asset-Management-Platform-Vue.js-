@@ -86,7 +86,7 @@ export default {
             else {
                 let self = this;
                 axios
-                    .post('http://127.0.0.1:8087/user/register', {
+                    .post('http://47.96.132.244:8087/user/register', {
                         "sign": this.loginForm.invitationCode,
                         "username": this.loginForm.username,
                         "password": this.loginForm.password,

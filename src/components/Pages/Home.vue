@@ -23,12 +23,24 @@ export default {
     // 初始化时获取数据
     let self = this;
     axios
-        .get('http://127.0.0.1:8087/admin/lately', {
+        .get('http://47.96.132.244:8087/admin/lately', {
             headers: {
                 "token": this.$cookie.get('TOKEN')
             }
         })
         .then(data => {
+            if (data.data.msg == "授权已过期") {
+              self.$notify({
+                title: '初始化失败',
+                message: '当前登录已过期，请重新登录！',
+                type: 'error'
+              })
+              this.$cookie.delete("TOKEN");
+              this.$cookie.delete("AUTHORITY");
+              this.$cookie.delete("USERNAME");
+              this.$router.replace({ path: "/login" });
+              return;
+            }
             self.tableData = data.data.list;
         })
         .catch(err => {

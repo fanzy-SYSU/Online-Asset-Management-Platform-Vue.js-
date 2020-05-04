@@ -5,6 +5,7 @@ import LoginPage from '../src/components/Login&Register/LoginPage.vue';
 import RegisterPage from '../src/components/Login&Register/RegisterPage.vue';
 import HomePage from '../src/components/Pages/Home.vue';
 import AddDevicePage from '../src/components/Pages/Add.vue';
+import DeviceListPage from '../src/components/Pages/List.vue';
 import QueryDevicePage from '../src/components/Pages/Query.vue';
 
 Vue.use(Router);
@@ -42,6 +43,15 @@ export default new Router({
             path: '/add',
             name: '资产录入',
             component: AddDevicePage,
+            meta: {
+                keepAlive: true,
+                title: '资产在线管理平台'
+            }
+        },
+        {
+            path: '/list',
+            name: '资产列表',
+            component: DeviceListPage,
             meta: {
                 keepAlive: true,
                 title: '资产在线管理平台'
