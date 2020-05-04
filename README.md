@@ -1,5 +1,5 @@
 # Online-Asset-Management-Platform-Vue.js-
-ver 1.2.1
+ver 1.2.3
 
 ## Update Log
 
